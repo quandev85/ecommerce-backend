@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const { default: helmet } = require('helmet');
@@ -11,8 +12,9 @@ app.use(helmet());
 app.use(compression());
 
 // Sample route
-app.get('/api', (req, res) => {
-  res.send('Hello, World');
-});
+app.use('/api/v1', require('./routes'));
+
+// init db
+require('./db/init.mongo');
 
 module.exports = app;
